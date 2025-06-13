@@ -1,73 +1,181 @@
-# Welcome to your Lovable project
+# NotepadAI 🤖📝
 
-## Project info
+An intelligent notepad application with AI-powered autocorrect and next-word suggestions using Ollama integration.
 
-**URL**: https://lovable.dev/projects/4f47b119-9f81-4045-becf-05d486b2a237
+## ✨ Features
 
-## How can I edit this code?
+### 🔧 Core Features
+- **Modern Note-taking Interface**: Clean, responsive design with real-time editing
+- **Note Management**: Create, edit, save, and organize your notes
+- **Mobile-Friendly**: Responsive design that works on all devices
 
-There are several ways of editing your application.
+### 🤖 AI-Powered Features
+- **Real-time Autocorrect**: Automatically detects and suggests corrections for misspelled words while typing
+- **Next Word Prediction**: Press spacebar to get intelligent next word suggestions based on context
+- **Ollama Integration**: Uses local Ollama API with gemma2:2b model for privacy-focused AI assistance
+- **Instant Feedback**: Immediate visual feedback with loading states and suggestions
 
-**Use Lovable**
+### 🎨 Technical Features
+- **Modern Tech Stack**: React + TypeScript + Vite for fast development
+- **Beautiful UI**: Tailwind CSS with shadcn/ui components
+- **Optimized Performance**: Debounced API calls and efficient state management
+- **Debug Panel**: Built-in debugging tools for testing AI features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4f47b119-9f81-4045-becf-05d486b2a237) and start prompting.
+## 🚀 Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
+- Node.js & npm installed ([install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
+- Ollama installed and running locally ([Download Ollama](https://ollama.ai/))
 
-**Use your preferred IDE**
+### Installation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. **Clone the repository**
+```bash
+git clone https://github.com/euii-ii/NotepadAI.git
+cd NotepadAI
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+2. **Install dependencies**
+```bash
+npm install
+```
 
-Follow these steps:
+3. **Set up Ollama**
+```bash
+# Install and start Ollama
+ollama pull gemma2:2b
+ollama serve
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+4. **Start the development server**
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+5. **Open your browser**
+Navigate to `http://localhost:5173` (or the port shown in terminal)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🤖 AI Setup
 
-**Use GitHub Codespaces**
+### Ollama Configuration
+1. **Install Ollama**: Download from [ollama.ai](https://ollama.ai/)
+2. **Pull the model**: `ollama pull gemma2:2b`
+3. **Start Ollama**: `ollama serve` (runs on localhost:11434)
+4. **Verify**: The app will test connectivity on startup
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Supported Models
+- **gemma2:2b** (recommended): Fast, lightweight model for autocorrect and suggestions
+- Other Ollama models can be configured in `src/components/NoteEditor.tsx`
 
-## What technologies are used for this project?
+## 🎯 How to Use
 
-This project is built with:
+### Basic Note-taking
+1. Click "Create New Note" to start
+2. Add a title and start typing your content
+3. Notes are saved automatically
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### AI Features
+1. **Autocorrect**: Type words with intentional misspellings (e.g., "helo", "teh")
+   - Suggestions appear automatically while typing
+   - Click the red "Fix: word" button to apply corrections
 
-## How can I deploy this project?
+2. **Next Word Suggestions**: Type some text and press spacebar
+   - Blue "Next: word" button appears with suggestions
+   - Click to add the suggested word
 
-Simply open [Lovable](https://lovable.dev/projects/4f47b119-9f81-4045-becf-05d486b2a237) and click on Share -> Publish.
+3. **Debug Panel**: Use the yellow debug panel to:
+   - Monitor AI feature states
+   - Test specific words manually
+   - View API response logs
 
-## Can I connect a custom domain to my Lovable project?
+## 🛠️ Technologies Used
 
-Yes, you can!
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS + shadcn/ui
+- **AI Integration**: Ollama API (gemma2:2b)
+- **State Management**: React Hooks
+- **Icons**: Lucide React
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📁 Project Structure
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```
+src/
+├── components/
+│   ├── ui/              # shadcn/ui components
+│   ├── Dashboard.tsx    # Main dashboard
+│   ├── NoteEditor.tsx   # AI-powered note editor
+│   ├── NotesList.tsx    # Notes list view
+│   └── WelcomeScreen.tsx
+├── types/
+│   └── Note.ts          # TypeScript types
+├── pages/
+│   └── Index.tsx        # Main page
+└── lib/
+    └── utils.ts         # Utility functions
+```
+
+## 🔧 Configuration
+
+### API Timeouts
+Adjust timeout settings in `src/components/NoteEditor.tsx`:
+```typescript
+const USE_TIMEOUTS = true;
+const AUTOCORRECT_TIMEOUT = 8000; // 8 seconds
+const SUGGESTION_TIMEOUT = 10000; // 10 seconds
+```
+
+### Model Configuration
+Change the AI model in the API calls:
+```typescript
+model: "gemma2:2b" // Change to your preferred model
+```
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **"Connection Refused" Error**
+   - Ensure Ollama is running: `ollama serve`
+   - Check if port 11434 is available
+   - Verify model is installed: `ollama list`
+
+2. **Autocorrect Not Working**
+   - Type words with 3+ letters
+   - Check browser console for API logs
+   - Use debug panel test buttons
+
+3. **Spacebar Suggestions Not Appearing**
+   - Ensure you have text before pressing spacebar
+   - Check console logs for debugging info
+   - Try the manual test button
+
+### Debug Mode
+Enable detailed logging by checking the browser console (F12) for:
+- API request/response logs
+- State change notifications
+- Error messages and timeouts
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes
+4. Commit: `git commit -m "Add feature"`
+5. Push: `git push origin feature-name`
+6. Open a Pull Request
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- [Ollama](https://ollama.ai/) for local AI model hosting
+- [shadcn/ui](https://ui.shadcn.com/) for beautiful UI components
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [Lucide](https://lucide.dev/) for icons
+
+---
+
+**Built with ❤️ using modern web technologies and AI**
